@@ -2,139 +2,60 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For My Love</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
+    <title>Love Forever</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style src="../../App.css">
+      /* --- Base page --- */
       body {
-        font-family: "Montserrat", sans-serif;
-        background: linear-gradient(135deg, #ffd1dc, #ffb7c5);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow-x: hidden;
-        color: #8a1c4a;
+        background: #000;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          Arial,
+          sans-serif;
       }
 
-      /* Password Modal */
-      .password-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 182, 193, 0.95);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-        transition: opacity 0.5s ease;
+      /* --- Love words --- */
+      #ui .love {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -225px 0 0 -225px;
+        /* per-item delay via CSS variable --i (1..N) */
+        --i: 1;
+      }
+      #ui .love:last-child .love_word {
+        color: #fff;
+        font-size: 2rem;
+        text-shadow: 0 0 10px #ea80b0;
+      }
+      /* Make the last item match the others */
+      #ui .love:last-child .love_word {
+        color: #ea80b0;
+        font-size: 1.4rem;
+        text-shadow: 0 0 10px #fff;
       }
 
-      .password-content {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
-        animation: bounceIn 1s forwards;
+      #ui .love_word {
+        color: #ea80b0;
+        font-size: 1.4rem;
+        transform: translateY(-100%) rotateZ(-30deg);
+        text-shadow: 0 0 10px #fff;
+        letter-spacing: 2px;
+        white-space: nowrap;
       }
-
-      .password-content h2 {
-        font-family: "Dancing Script", cursive;
-        font-size: 32px;
-        margin-bottom: 20px;
-        color: #d81b60;
+      #ui .love_horizontal {
+        animation: horizontal 10000ms infinite alternate ease-in-out;
+        animation-delay: calc(var(--i) * -300ms);
       }
-
-      .password-input {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #ffb7c5;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        font-size: 16px;
-        text-align: center;
-        outline: none;
-        transition: border-color 0.3s;
-      }
-
-      .password-input:focus {
-        border-color: #d81b60;
-      }
-
-      .submit-btn {
-        background: #d81b60;
-        color: white;
-        border: none;
-        padding: 12px 25px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        transition:
-          background 0.3s,
-          transform 0.2s;
-      }
-
-      .submit-btn:hover {
-        background: #b71550;
-        transform: scale(1.05);
-      }
-
-      /* Welcome Screen */
-      .welcome-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #ffd1dc, #ffb7c5);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 99;
-        transition: opacity 0.8s ease;
-      }
-
-      .welcome-message {
-        font-family: "Dancing Script", cursive;
-        font-size: 48px;
-        color: #d81b60;
-        text-align: center;
-        animation:
-          pulse 2s infinite,
-          float 3s ease-in-out infinite;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Main Content */
-      .container {
-        width: 100%;
-        max-width: 900px;
-        padding: 20px;
-        margin-top: 50px;
-      }
-
-      .tabs {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
+      #ui .love_vertical {
+        animation: vertical 20000ms infinite linear;
+        animation-delay: calc(var(--i) * -300ms);
       }
 
       .tab {
@@ -183,406 +104,112 @@
         display: block;
       }
 
-      /* Love Letter Tab */
-      .letter {
-        padding: 20px;
-        background: #fff5f7;
-        border-radius: 15px;
-        border: 2px dashed #ffb7c5;
-        margin-bottom: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .letter-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      .letter h3 {
-        font-family: "Dancing Script", cursive;
-        font-size: 28px;
-        color: #d81b60;
-      }
-
-      .letter-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease;
-      }
-
-      .letter.expanded .letter-content {
-        max-height: 500px;
-      }
-
-      /* Music Tab */
-      .song {
-        background: #f8e8ee;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .song-icon {
-        font-size: 24px;
-        color: #d81b60;
-      }
-
-      .song-info h4 {
-        font-size: 18px;
-        margin-bottom: 5px;
-      }
-
-      .song-info p {
-        color: #888;
-        font-size: 14px;
-      }
-
-      /* Notes Tab */
-      .note {
-        background: #fce4ec;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        border-left: 4px solid #d81b60;
-      }
-
-      /* Gallery Tab */
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
-      }
-
-      .gallery-item {
-        border-radius: 10px;
-        overflow: hidden;
-        height: 200px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-      }
-
-      .gallery-item:hover {
-        transform: scale(1.05);
-      }
-
-      .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* Decorative Elements */
-      .heart,
-      .teddy-bear {
-        position: absolute;
-        z-index: -1;
-        opacity: 0.2;
-        pointer-events: none;
-      }
-
-      .heart {
-        color: #d81b60;
-        font-size: 24px;
-        animation: float 6s ease-in-out infinite;
-      }
-
-      .teddy-bear {
-        font-size: 32px;
-        animation: float 8s ease-in-out infinite;
-      }
-
-      /* Animations */
-      @keyframes bounceIn {
-        0% {
-          transform: scale(0.8);
-          opacity: 0;
-        }
-        60% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeIn {
+      /* --- Animations (unchanged) --- */
+      @keyframes horizontal {
         from {
-          opacity: 0;
-          transform: translateY(20px);
+          transform: translateX(0px);
         }
         to {
-          opacity: 1;
-          transform: translateY(0);
+          transform: translateX(450px);
         }
       }
-
-      @keyframes pulse {
+      @keyframes vertical {
         0% {
-          transform: scale(1);
+          transform: translateY(180px);
         }
-        50% {
-          transform: scale(1.05);
+        10% {
+          transform: translateY(45px);
         }
-        100% {
-          transform: scale(1);
+        15% {
+          transform: translateY(4.5px);
         }
-      }
-
-      @keyframes float {
-        0% {
+        18% {
           transform: translateY(0px);
         }
-        50% {
-          transform: translateY(-10px);
+        20% {
+          transform: translateY(4.5px);
         }
-        100% {
+        22% {
+          transform: translateY(34.61538px);
+        }
+        24% {
+          transform: translateY(64.28571px);
+        }
+        25% {
+          transform: translateY(112.5px);
+        }
+        26% {
+          transform: translateY(64.28571px);
+        }
+        28% {
+          transform: translateY(34.61538px);
+        }
+        30% {
+          transform: translateY(4.5px);
+        }
+        32% {
           transform: translateY(0px);
         }
-      }
-
-      /* Responsive Design */
-      @media (max-width: 768px) {
-        .welcome-message {
-          font-size: 36px;
+        35% {
+          transform: translateY(4.5px);
         }
-
-        .tabs {
-          flex-direction: column;
-          align-items: center;
+        40% {
+          transform: translateY(45px);
         }
-
-        .tab {
-          width: 100%;
-          justify-content: center;
+        50% {
+          transform: translateY(180px);
         }
-
-        .gallery {
-          grid-template-columns: repeat(2, 1fr);
+        71% {
+          transform: translateY(428.57143px);
+        }
+        72.5% {
+          transform: translateY(441.17647px);
+        }
+        75% {
+          transform: translateY(450px);
+        }
+        77.5% {
+          transform: translateY(441.17647px);
+        }
+        79% {
+          transform: translateY(428.57143px);
+        }
+        100% {
+          transform: translateY(180px);
         }
       }
     </style>
   </head>
   <body>
-    <!-- Password Modal -->
-    <div class="password-modal" id="passwordModal">
-      <div class="password-content">
-        <h2>Enter the secret code</h2>
-        <input
-          type="password"
-          class="password-input"
-          id="passwordInput"
-          placeholder="Our special word..."
-        />
-        <button class="submit-btn" id="submitPassword">Enter</button>
-      </div>
-    </div>
+    <a href="../../../index.html" class="tab">Back</a>
 
-    <!-- Welcome Screen -->
-    <div class="welcome-screen" id="welcomeScreen">
-      <h1 class="welcome-message">Welcome my love, enjoy your stay</h1>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container" id="mainContent" style="display: none">
-      <div class="tabs">
-        <button class="tab active" data-tab="love-letter">
-          <span>❤️</span> Love Letter
-        </button>
-        <button class="tab" data-tab="music"><span></span> Gifs</button>
-        <button class="tab" data-tab="notes"><span>📝</span> Notes</button>
-        <button class="tab" data-tab="gallery"><span>🌷</span> Gallery</button>
-      </div>
-
-      <div class="content-area">
-        <!-- Love Letter Tab -->
-        <div class="tab-content active" id="love-letter">
-          <h2>My Dearest</h2>
-          <div class="letter" id="loveLetter">
-            <div class="letter-header">
-              <h3>A Letter For You</h3>
-              <span>👇 Click to open</span>
-            </div>
-            <div class="letter-content">
-              <p>My love,</p>
-              <p>
-                Every day with you feels like a beautiful dream that I never
-                want to wake up from. Your smile brightens my darkest days, and
-                your laughter is my favorite melody.
-              </p>
-              <p>
-                I cherish every moment we spend together, from our silly inside
-                jokes to our deep conversations under the stars. You've shown me
-                what true happiness feels like, and I'm forever grateful to have
-                you in my life.
-              </p>
-              <p>
-                No matter where life takes us, always remember that my heart
-                belongs to you.
-              </p>
-              <p>Forever yours,</p>
-              <p>Me</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notes Tab -->
-        <div class="tab-content" id="notes">
-          <h2>Some reminders</h2>
-          <div class="note">
-            <p>Take care always</p>
-          </div>
-          <div class="note">
-            <p>Eat on time</p>
-          </div>
-          <div class="note">
-            <p>You're mine.. always</p>
-          </div>
-        </div>
-
-        <!-- Gallery Tab -->
-        <div class="tab-content" id="gallery">
-          <h2>Flowers for you</h2>
-          <div class="gallery">
-            <div class="gallery-item">
-              <img
-                src="../../../public/jpgs/2_ed0b3d4f-a122-4cc3-a71e-1a77b174a874.webp"
-              />
-            </div>
-            <div class="gallery-item">
-              <img
-                src="../../../public/jpgs/1b4b6f68902bf22047e1ec6b78180a23.jpg"
-              />
-            </div>
-            <div class="gallery-item">
-              <img src="../../../public/jpgs/S35-4298__99937__88227.jpg" />
-            </div>
-            <div class="gallery-item">
-              <img
-                src="../../../public/jpgs/20241030195233_file_67228e8193e55.avif"
-              />
-            </div>
-            <div class="gallery-item">
-              <img
-                src="../../../public/jpgs/Ztnkqrzzk9ZrXD8N_shutterstock_552296878.avif"
-              />
-            </div>
-            <div class="gallery-item">
-              <img src="../../../public/jpgs/sku12601779.avif" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Decorative elements -->
-    <div class="heart" style="top: 10%; left: 5%">❤️</div>
-    <div class="heart" style="top: 20%; right: 10%">❤️</div>
-    <div class="heart" style="bottom: 15%; left: 15%">❤️</div>
-    <div class="teddy-bear" style="top: 30%; left: 10%">🧸</div>
-    <div class="teddy-bear" style="bottom: 10%; right: 5%">🧸</div>
+    <div id="ui"></div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Password check
-        const passwordModal = document.getElementById("passwordModal");
-        const welcomeScreen = document.getElementById("welcomeScreen");
-        const mainContent = document.getElementById("mainContent");
-        const passwordInput = document.getElementById("passwordInput");
-        const submitPassword = document.getElementById("submitPassword");
+      // Create N floating “I love you” items (was multilingual; now all English)
+      const N = 100; // adjust if you want fewer/more
+      const ui = document.getElementById("ui");
 
-        submitPassword.addEventListener("click", function () {
-          if (passwordInput.value.toLowerCase() === "lily") {
-            passwordModal.style.opacity = "0";
-            setTimeout(() => {
-              passwordModal.style.display = "none";
-              welcomeScreen.style.display = "flex";
+      for (let i = 1; i <= N; i++) {
+        const love = document.createElement("div");
+        love.className = "love";
+        love.style.setProperty("--i", i);
 
-              setTimeout(() => {
-                welcomeScreen.style.opacity = "0";
-                setTimeout(() => {
-                  welcomeScreen.style.display = "none";
-                  mainContent.style.display = "block";
-                }, 800);
-              }, 2500);
-            }, 500);
-          } else {
-            passwordInput.value = "";
-            passwordInput.placeholder = "Try again, my love...";
-            passwordInput.style.borderColor = "#ff4d4d";
-            setTimeout(() => {
-              passwordInput.style.borderColor = "#ffb7c5";
-              passwordInput.placeholder = "Our special word...";
-            }, 1500);
-          }
-        });
+        const h = document.createElement("div");
+        h.className = "love_horizontal";
 
-        // Allow Enter key to submit password
-        passwordInput.addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            submitPassword.click();
-          }
-        });
+        const v = document.createElement("div");
+        v.className = "love_vertical";
 
-        // Tab switching
-        const tabs = document.querySelectorAll(".tab");
-        const tabContents = document.querySelectorAll(".tab-content");
+        const word = document.createElement("div");
+        word.className = "love_word";
+        word.textContent = "I love you";
 
-        tabs.forEach((tab) => {
-          tab.addEventListener("click", function () {
-            const targetTab = this.getAttribute("data-tab");
-
-            // Update active tab
-            tabs.forEach((t) => t.classList.remove("active"));
-            this.classList.add("active");
-
-            // Show corresponding content
-            tabContents.forEach((content) => {
-              content.classList.remove("active");
-              if (content.id === targetTab) {
-                content.classList.add("active");
-              }
-            });
-          });
-        });
-
-        // Expandable love letter
-        const loveLetter = document.getElementById("loveLetter");
-        loveLetter.addEventListener("click", function () {
-          this.classList.toggle("expanded");
-        });
-
-        // Add floating decorative elements
-        function addFloatingElements() {
-          for (let i = 0; i < 15; i++) {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "%";
-            heart.style.top = Math.random() * 100 + "%";
-            heart.style.animationDelay = Math.random() * 5 + "s";
-            document.body.appendChild(heart);
-          }
-
-          for (let i = 0; i < 5; i++) {
-            const teddy = document.createElement("div");
-            teddy.classList.add("teddy-bear");
-            teddy.innerHTML = "🧸";
-            teddy.style.left = Math.random() * 100 + "%";
-            teddy.style.top = Math.random() * 100 + "%";
-            teddy.style.animationDelay = Math.random() * 5 + "s";
-            document.body.appendChild(teddy);
-          }
-        }
-
-        addFloatingElements();
-      });
+        v.appendChild(word);
+        h.appendChild(v);
+        love.appendChild(h);
+        ui.appendChild(love);
+      }
     </script>
   </body>
 </html>
