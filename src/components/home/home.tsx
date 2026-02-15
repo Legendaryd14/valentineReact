@@ -1,0 +1,213 @@
+// export function Home() {
+//     document.addEventListener("DOMContentLoaded", function () {
+//       // Password check
+//       const passwordModal = document.getElementById("passwordModal");
+//       const welcomeScreen = document.getElementById("welcomeScreen");
+//       const mainContent = document.getElementById("mainContent");
+//       const passwordInput = document.getElementById("passwordInput");
+//       const submitPassword = document.getElementById("submitPassword");
+
+//       submitPassword.addEventListener("click", function () {
+//         if (passwordInput.value.toLowerCase() === "babycakes") {
+//           passwordModal.style.opacity = "0";
+//           setTimeout(() => {
+//             passwordModal.style.display = "none";
+//             welcomeScreen.style.display = "flex";
+
+//             setTimeout(() => {
+//               welcomeScreen.style.opacity = "0";
+//               setTimeout(() => {
+//                 welcomeScreen.style.display = "none";
+//                 mainContent.style.display = "block";
+//               }, 800);
+//             }, 2500);
+//           }, 500);
+//         } else {
+//           passwordInput.value = "";
+//           passwordInput.placeholder = "Try again, my love...";
+//           passwordInput.style.borderColor = "#ff4d4d";
+//           setTimeout(() => {
+//             passwordInput.style.borderColor = "#ffb7c5";
+//             passwordInput.placeholder = "Our special word...";
+//           }, 1500);
+//         }
+//       });
+
+//       // Allow Enter key to submit password
+//       passwordInput.addEventListener("keypress", function (e) {
+//         if (e.key === "Enter") {
+//           submitPassword.click();
+//         }
+//       });
+
+//       // Tab switching
+//       const tabs = document.querySelectorAll(".tab");
+//       const tabContents = document.querySelectorAll(".tab-content");
+
+//       tabs.forEach((tab) => {
+//         tab.addEventListener("click", function () {
+//           const targetTab = this.getAttribute("data-tab");
+
+//           // Update active tab
+//           tabs.forEach((t) => t.classList.remove("active"));
+//           this.classList.add("active");
+
+//           // Show corresponding content
+//           tabContents.forEach((content) => {
+//             content.classList.remove("active");
+//             if (content.id === targetTab) {
+//               content.classList.add("active");
+//             }
+//           });
+//         });
+//       });
+
+//       // Expandable love letter
+//       const loveLetter = document.getElementById("loveLetter");
+//       loveLetter.addEventListener("click", function () {
+//         this.classList.toggle("expanded");
+//       });
+
+//       // Add floating decorative elements
+//       function addFloatingElements() {
+//         for (let i = 0; i < 15; i++) {
+//           const heart = document.createElement("div");
+//           heart.classList.add("heart");
+//           heart.innerHTML = "❤️";
+//           heart.style.left = Math.random() * 100 + "%";
+//           heart.style.top = Math.random() * 100 + "%";
+//           heart.style.animationDelay = Math.random() * 5 + "s";
+//           document.body.appendChild(heart);
+//         }
+
+//         for (let i = 0; i < 5; i++) {
+//           const teddy = document.createElement("div");
+//           teddy.classList.add("teddy-bear");
+//           teddy.innerHTML = "🧸";
+//           teddy.style.left = Math.random() * 100 + "%";
+//           teddy.style.top = Math.random() * 100 + "%";
+//           teddy.style.animationDelay = Math.random() * 5 + "s";
+//           document.body.appendChild(teddy);
+//         }
+//       }
+
+//       addFloatingElements();
+//     });
+
+//     return <div class="password-modal" id="passwordModal">
+//         <div class="password-content">
+//             <h2>Enter the secret code</h2>
+//             <input type="password" class="password-input" id="passwordInput" placeholder="Our special word...">
+//             <button class="submit-btn" id="submitPassword">Enter</button>
+//         </div>
+//     </div>
+
+//     <!-- Welcome Screen -->
+//     <div class="welcome-screen" id="welcomeScreen">
+//         <h1 class="welcome-message">Welcome my love, enjoy your stay</h1>
+//     </div>
+
+//     <!-- Main Content -->
+//     <div class="container" id="mainContent" style="display: none;">
+//         <div class="tabs">
+//             <button class="tab active" data-tab="love-letter">
+//                 <span>❤️</span> Love Letter
+//             </button>
+//             <button class="tab" data-tab="music">
+//                 <span>🎵</span> Music
+//             </button>
+//             <button class="tab" data-tab="notes">
+//                 <span>📝</span> Notes
+//             </button>
+//             <button class="tab" data-tab="gallery">
+//                 <span>🌷</span> Gallery
+//             </button>
+//         </div>
+
+//         <div class="content-area">
+//             <!-- Love Letter Tab -->
+//             <div class="tab-content active" id="love-letter">
+//                 <h2>My Dearest</h2>
+//                 <div class="letter" id="loveLetter">
+//                     <div class="letter-header">
+//                         <h3>A Letter For You</h3>
+//                         <span>👇 Click to open</span>
+//                     </div>
+//                     <div class="letter-content">
+//                         <p>My love,</p>
+//                         <p>Every day with you feels like a beautiful dream that I never want to wake up from. Your smile brightens my darkest days, and your laughter is my favorite melody.</p>
+//                         <p>I cherish every moment we spend together, from our silly inside jokes to our deep conversations under the stars. You've shown me what true happiness feels like, and I'm forever grateful to have you in my life.</p>
+//                         <p>No matter where life takes us, always remember that my heart belongs to you.</p>
+//                         <p>Forever yours,</p>
+//                         <p>Me</p>
+//                     </div>
+//                 </div>
+//             </div>
+
+//             <!-- Music Tab -->
+//             <div class="tab-content" id="music">
+//                 <h2>Songs that remind me of you</h2>
+//                 <div class="song">
+//                     <div class="song-icon">🎵</div>
+//                     <div class="song-info">
+//                         <h4>Hiwaga</h4>
+//                         <p>by Tatin DC</p>
+//                     </div>
+//                 </div>
+//                 <div class="song">
+//                     <div class="song-icon">🎵</div>
+//                     <div class="song-info">
+//                         <h4>Wish</h4>
+//                         <p>by 16</p>
+//                     </div>
+//                 </div>
+//             </div>
+
+//             <!-- Notes Tab -->
+//             <div class="tab-content" id="notes">
+//                 <h2>Some reminders</h2>
+//                 <div class="note">
+//                     <p>Take care always</p>
+//                 </div>
+//                 <div class="note">
+//                     <p>Eat on time</p>
+//                 </div>
+//                 <div class="note">
+//                     <p>You're mine.. always</p>
+//                 </div>
+//             </div>
+
+//             <!-- Gallery Tab -->
+//             <div class="tab-content" id="gallery">
+//                 <h2>Flowers for you</h2>
+//                 <div class="gallery">
+//                     <div class="gallery-item">
+//                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1eaad721-3375-4d97-a5fa-cbf8a87d60b8.png" alt="Bouquet of delicate pink roses with soft green leaves">
+//                     </div>
+//                     <div class="gallery-item">
+//                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73632299-5dde-4ded-805a-88a7dcb4b5e4.png" alt="Beautiful pink tulips in a glass vase with morning dew">
+//                     </div>
+//                     <div class="gallery-item">
+//                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e9890063-b481-46f6-97a1-9fc753211e19.png" alt="Fluffy pink peony flowers with lush foliage">
+//                     </div>
+//                     <div class="gallery-item">
+//                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4bc3dffd-4971-4223-b7e4-3699d2b97bbe.png" alt="Branch of pink cherry blossoms against a blue sky">
+//                     </div>
+//                     <div class="gallery-item">
+//                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d0daff3c-1751-492b-9b74-de28ac48d384.png" alt="Cluster of light pink carnations with delicate petals">
+//                     </div>
+//                     <div class="gallery-item">
+//                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/51f3ca74-2471-403f-bb99-751536acd7d9.png" alt="Vibrant pink azalea flowers covering a garden bush">
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+
+//     <!-- Decorative elements -->
+//     <div class="heart" style="top: 10%; left: 5%;">❤️</div>
+//     <div class="heart" style="top: 20%; right: 10%;">❤️</div>
+//     <div class="heart" style="bottom: 15%; left: 15%;">❤️</div>
+//     <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
+//     <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
+// }
